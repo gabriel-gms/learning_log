@@ -1,13 +1,21 @@
 {% extends "learning_logs/base.html" %}
 
+{% load bootstrap3 %}
+
+{% block header %}
+    <h3>Login</h3>
+{% endblock header %}
+
 {% block content %}
     {% if form.errors %}
         <p>Seu email ou senha estão incorretos.</p>
     {% endif %}
-    <form action="{% url 'users:login' %}" method="post">
+    <form action="{% url 'users:login' %}" method="post" class="form">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Entrar</button>
+        {% bootstrap_form form %}
+        {% buttons %}
+            <button type="submit" class="btn btn-primary">Entrar</button>
+        {% endbuttons %}
         <input type="hidden" name="next" value="{% url 'learning_logs:index' %}">
     </form>
 {% endblock content %}  
