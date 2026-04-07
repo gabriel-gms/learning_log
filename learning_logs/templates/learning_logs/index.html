@@ -7,5 +7,9 @@
 {% endblock header %}
 
 {% block content %}
+    {% if user.is_authenticated %}
+        <p>Olá, {{ user.username }}! Agora você pode criar e gerenciar suas anotações.</p>
+    {% else %}
     <p>Essa é a plataforma para anotações de estudos, <a href="{% url 'users:register' %}">crie sua conta</a> e aproveite os recursos do app</p>
+    {% endif %}
 {% endblock content %}

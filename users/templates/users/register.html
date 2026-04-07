@@ -1,10 +1,20 @@
 {% extends "learning_logs/base.html" %}
 
+{% load bootstrap3 %}
+
 {% block content %}
-    <form action="{% url 'users:register' %}" method="post">
+    {% if form.errors %}
+        <p class="error-alert" style="display: block;">* O usuário deve ter caracteres especiais</p>
+        <p class="error-alert" style="display: block;">* A senha deve ter mais de 8 digitos, letras, numeros e caracteres especiais</p>
+    {% endif %}
+
+    <form action="{% url 'users:register' %}" method="post" class="ul-none">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Registrar</button>
+        {% bootstrap_form form %}
+
+        {% buttons %}
+            <button class="btn btn-primary" type="submit">Registrar</button>
+        {% endbuttons %}
         <input type="hidden" name="next" value="{% url 'learning_logs:index' %}">
     </form>
 {% endblock content %}  
